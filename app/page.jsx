@@ -1,4 +1,4 @@
-import Feed from '@components/Feed';
+import Feed from '@Components/Feed';
 
 const Home = () => {
   return (
