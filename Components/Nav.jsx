@@ -11,12 +11,10 @@ const Nav = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
-    let isMounted = true; // Prevent unnecessary re-renders
+    let isMounted = true;
 
     const setUpProviders = async () => {
       const response = await getProviders();
-      console.log("Providers:", response); // Debugging line
-
       if (isMounted) {
         setProviders(response);
       }
@@ -25,7 +23,7 @@ const Nav = () => {
     setUpProviders();
 
     return () => {
-      isMounted = false; // Cleanup to prevent memory leaks
+      isMounted = false;
     };
   }, []);
 
@@ -66,16 +64,16 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            {providers && Object.values(providers).length > 0 && (
-              <button
-                type="button"
-                key={Object.values(providers)[0].name}
-                onClick={() => signIn(Object.values(providers)[0].id)}
-                className="black_btn"
-              >
-                Sign in
-              </button>
-            )}
+            {providers &&
+              Object.values(providers).length > 0 && ( // Ensures only one button is rendered
+                <button
+                  type="button"
+                  onClick={() => signIn(Object.values(providers)[0].id)}
+                  className="black_btn"
+                >
+                  Sign in
+                </button>
+              )}
           </>
         )}
       </div>
@@ -124,16 +122,16 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            {providers && Object.values(providers).length > 0 && (
-              <button
-                type="button"
-                key={Object.values(providers)[0].name}
-                onClick={() => signIn(Object.values(providers)[0].id)}
-                className="black_btn"
-              >
-                Sign in
-              </button>
-            )}
+            {providers &&
+              Object.values(providers).length > 0 && ( // Ensures only one button is rendered
+                <button
+                  type="button"
+                  onClick={() => signIn(Object.values(providers)[0].id)}
+                  className="black_btn"
+                >
+                  Sign in
+                </button>
+              )}
           </>
         )}
       </div>
