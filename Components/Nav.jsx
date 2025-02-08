@@ -13,14 +13,14 @@ const Nav = () => {
   useEffect(() => {
     let isMounted = true;
 
-    const setUpProviders = async () => {
+    const fetchProviders = async () => {
       const response = await getProviders();
-      if (isMounted) {
-        setProviders(response);
+      if (isMounted && response) {
+        setProviders((prev) => prev || response); // Prevent re-setting state
       }
     };
 
-    setUpProviders();
+    fetchProviders();
 
     return () => {
       isMounted = false;
@@ -64,16 +64,15 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            {providers &&
-              Object.values(providers).length > 0 && ( // Ensures only one button is rendered
-                <button
-                  type="button"
-                  onClick={() => signIn(Object.values(providers)[0].id)}
-                  className="black_btn"
-                >
-                  Sign in
-                </button>
-              )}
+            {providers && Object.keys(providers).length > 0 && (
+              <button
+                type="button"
+                onClick={() => signIn(Object.values(providers)[0].id)}
+                className="black_btn"
+              >
+                Sign in
+              </button>
+            )}
           </>
         )}
       </div>
@@ -122,16 +121,15 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            {providers &&
-              Object.values(providers).length > 0 && ( // Ensures only one button is rendered
-                <button
-                  type="button"
-                  onClick={() => signIn(Object.values(providers)[0].id)}
-                  className="black_btn"
-                >
-                  Sign in
-                </button>
-              )}
+            {providers && Object.keys(providers).length > 0 && (
+              <button
+                type="button"
+                onClick={() => signIn(Object.values(providers)[0].id)}
+                className="black_btn"
+              >
+                Sign in
+              </button>
+            )}
           </>
         )}
       </div>
