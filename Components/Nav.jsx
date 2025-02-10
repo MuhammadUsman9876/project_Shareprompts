@@ -11,19 +11,21 @@ const Nav = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
-    let isMounted = true;
+    let isMounted = true; // Prevent unnecessary re-renders
 
-    const fetchProviders = async () => {
+    const setUpProviders = async () => {
       const response = await getProviders();
-      if (isMounted && response) {
-        setProviders((prev) => prev || response); // Prevent re-setting state
+      console.log("Providers:", response); // Debugging line
+
+      if (isMounted) {
+        setProviders(response);
       }
     };
 
-    fetchProviders();
+    setUpProviders();
 
     return () => {
-      isMounted = false;
+      isMounted = false; // Cleanup to prevent memory leaks
     };
   }, []);
 
@@ -64,9 +66,10 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            {providers && Object.keys(providers).length > 0 && (
+            {providers && Object.values(providers).length > 0 && (
               <button
                 type="button"
+                key={Object.values(providers)[0].name}
                 onClick={() => signIn(Object.values(providers)[0].id)}
                 className="black_btn"
               >
@@ -121,9 +124,10 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            {providers && Object.keys(providers).length > 0 && (
+            {providers && Object.values(providers).length > 0 && (
               <button
                 type="button"
+                key={Object.values(providers)[0].name}
                 onClick={() => signIn(Object.values(providers)[0].id)}
                 className="black_btn"
               >
